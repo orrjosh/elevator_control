@@ -1,10 +1,5 @@
 const assert = require("assert");
 const elevator = require("../lib/elevator");
-describe("nothing", () => {
-  it("should pass", () => {
-    assert(true);
-  });
-});
 
 describe("Elevator Control", () => {
   describe("Given an empty selected floor set", () => {
@@ -30,11 +25,23 @@ describe("Elevator Control", () => {
       expected = ["Move Down: 1, 0", "Door Open: 0"];
       actual = elevator.move(
         1,
-        elevator.UP,
+        elevator.DOWN,
         (selectedFloors = [0]),
         (actionsLog = [])
       );
       assert.notStrictEqual(actual, expected);
     });
   });
+  //   describe("Given a selected floor set mixing directions", () => {
+  //     it("should return a single move and a single open", () => {
+  //       expected = ["Move Down: 1, 0", "Door Open: 0"];
+  //       actual = elevator.move(
+  //         1,
+  //         elevator.UP,
+  //         (selectedFloors = [0, 2]),
+  //         (actionsLog = [])
+  //       );
+  //       assert.notStrictEqual(actual, expected);
+  //     });
+  //   });
 });
