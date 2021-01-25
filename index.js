@@ -1,12 +1,19 @@
-// const readline = require('readline')
+const elevator = require("./lib/elevator");
 
-// const rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout
-// })
+const readline = require("readline").createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-// rl.question('What direction(up/down)', (direction) => {
-//   console.log(direction)
-// })
-
-console.log("to be implemented");
+readline.question("Enter your current floor: ", (floor) => {
+  readline.question(
+    "Enter a comma separated list of selected floors: ",
+    (selectedFloors) => {
+      selectedFloors = selectedFloors.split(",").map((num) => {
+        return parseInt(num);
+      });
+      console.log(elevator.move(parseInt(floor), elevator.UP, selectedFloors));
+      readline.close();
+    }
+  );
+});

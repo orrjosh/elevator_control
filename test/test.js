@@ -75,7 +75,7 @@ describe("Elevator Control Move", () => {
     it("should throw a valid error", () => {
       assert.throws(() => {
         elevator.move(0, elevator.UP, (selectedFloors = [-2]));
-      }, elevator.INVALID_INPUT_MESSAGE);
+      }, elevator.INVALID_INPUT_SELECTED_MESSAGE);
     });
   });
 });
@@ -89,4 +89,5 @@ describe("Elevator Control Move isSelectedFloorsValid", () => {
   it("should return true with valid input", () => {
     assert.deepEqual(isSelectedFloorsValid([0, 1, 4]), true);
   });
+  //invalid selectedFloors, invalid floor
 });
