@@ -10,7 +10,8 @@
   "author": "Josh Orr",
   "license": "ISC",
   "devDependencies": {
-    "mocha": "^8.2.1"
+    "mocha": "^8.2.1",
+    "rewire": "^5.0.0"
   },
   "dependencies": {
     "prettier": "^2.2.1"

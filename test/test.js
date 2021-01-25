@@ -1,5 +1,8 @@
+const rewire = require("rewire");
 const assert = require("assert");
-const elevator = require("../lib/elevator");
+const elevator = rewire("../lib/elevator");
+
+var isSelectedFloorsValid = elevator.__get__("isSelectedFloorsValid");
 
 describe("Elevator Control Move", () => {
   describe("Given an empty selected floor set", () => {
@@ -68,9 +71,22 @@ describe("Elevator Control Move", () => {
       assert.deepEqual(actual, expected);
     });
   });
+  describe("When move is given invalid input", () => {
+    it("should throw a valid error", () => {
+      assert.throws(() => {
+        elevator.move(0, elevator.UP, (selectedFloors = [-2]));
+      }, elevator.INVALID_INPUT_MESSAGE);
+    });
+  });
 });
 describe("Elevator Control Move isSelectedFloorsValid", () => {
-  it("should return false if lowest floor less than bottom floor", () => {
-    assert.deepEqual(elevator.isSelectedFloorsValid([-2]), false);
+  it("should return false if lowest selected floor less than bottom floor", () => {
+    assert.deepEqual(isSelectedFloorsValid([-2]), false);
+  });
+  it("should return false if highest selected floor greater than than top floor", () => {
+    assert.deepEqual(isSelectedFloorsValid([11]), false);
+  });
+  it("should return true with valid input", () => {
+    assert.deepEqual(isSelectedFloorsValid([0, 1, 4]), true);
   });
 });
