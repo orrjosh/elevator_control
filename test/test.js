@@ -5,7 +5,7 @@ describe("Elevator Control", () => {
   describe("Given an empty selected floor set", () => {
     it("should return an empty actions log", () => {
       actionsLog = elevator.move(0, elevator.UP, [], []);
-      assert.notStrictEqual(actionsLog, []);
+      assert.deepEqual(actionsLog, []);
     });
   });
   describe("Given a one element selected floor set, going up", () => {
@@ -17,7 +17,7 @@ describe("Elevator Control", () => {
         (selectedFloors = [1]),
         (actionsLog = [])
       );
-      assert.notStrictEqual(actual, expected);
+      assert.deepEqual(actual, expected);
     });
   });
   describe("Given a one element selected floor set, going down", () => {
@@ -29,19 +29,26 @@ describe("Elevator Control", () => {
         (selectedFloors = [0]),
         (actionsLog = [])
       );
-      assert.notStrictEqual(actual, expected);
+      assert.deepEqual(actual, expected);
     });
   });
-  //   describe("Given a selected floor set mixing directions", () => {
-  //     it("should return a single move and a single open", () => {
-  //       expected = ["Move Down: 1, 0", "Door Open: 0"];
-  //       actual = elevator.move(
-  //         1,
-  //         elevator.UP,
-  //         (selectedFloors = [0, 2]),
-  //         (actionsLog = [])
-  //       );
-  //       assert.notStrictEqual(actual, expected);
-  //     });
-  //   });
+  describe("Given a selected floor set mixing directions", () => {
+    it("should return a single move and a single open", () => {
+      expected = [
+        "Door Open: 1",
+        "Move Up: 1, 2",
+        "Door Open: 2",
+        "Move Down: 2, 1",
+        "Move Down: 1, 0",
+        "Door Open: 0",
+      ];
+      actual = elevator.move(
+        1,
+        elevator.UP,
+        (selectedFloors = [0, 1, 2]),
+        (actionsLog = [])
+      );
+      assert.deepEqual(actual, expected);
+    });
+  });
 });
